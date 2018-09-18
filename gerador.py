@@ -1,5 +1,6 @@
 import numpy as np
 import itertools as it
+import random
 
 def geraMatriz(n,m):
     x = np.random.uniform(high=100, size=(n,m))
@@ -41,6 +42,7 @@ def geraProblema3():
     tam_grafo = np.random.randint(5,15)
     matriz_adjac = np.random.randint(1,20,(tam_grafo,tam_grafo))
     densidade = np.random.uniform(0.2)
+    vertices = np.random.permutation(range(0,tam_grafo))
 
     mat_densi = np.random.random((tam_grafo, tam_grafo)) <= densidade
 
@@ -49,7 +51,8 @@ def geraProblema3():
     obj = {
         "problema": "grafo",
         "n_nos": tam_grafo,
-        "mat_pesos": matriz_adjac.tolist()
+        "mat_pesos": matriz_adjac.tolist(),
+        "passar_em": vertices[:3].tolist()
     }
 
     return obj
