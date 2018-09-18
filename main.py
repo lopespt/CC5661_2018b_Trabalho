@@ -28,4 +28,4 @@ def p2():
 def p3():
     return flask.jsonify(gerador.geraProblema3())
 
-app.run(use_reloader=True)
+app.run(use_reloader=True,host="0.0.0.0")
