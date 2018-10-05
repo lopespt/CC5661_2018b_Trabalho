@@ -2,6 +2,7 @@ import numpy as np
 import itertools as it
 import random
 
+
 def geraMatriz(n,m):
     x = np.random.uniform(high=100, size=(n,m))
     x = np.round(x,2)
@@ -11,7 +12,7 @@ def geraMatriz(n,m):
 def geraProblema1():
     elementos = np.random.random_integers(0,9999999999999,(np.random.random_integers(100,1000)))
     obj ={
-        "problema": "ordenacao",
+        "tipo": "ordenacao",
         "n": len(elementos),
         "elementos": elementos.tolist()
     }
@@ -29,7 +30,7 @@ def geraProblema2():
         matrizes.append({"linhas": int(n), "colunas": int(m), "matriz": geraMatriz(n,m)})
 
     obj = {
-        "problema": "multiplicacao_matrizes",
+        "tipo": "multiplicacao_matrizes",
         "n_matrizes": len(dimensoes) -1,
         "matrizes": matrizes
     }
@@ -49,7 +50,7 @@ def geraProblema3():
     matriz_adjac = matriz_adjac*mat_densi
 
     obj = {
-        "problema": "grafo",
+        "tipo": "grafo",
         "n_nos": tam_grafo,
         "mat_pesos": matriz_adjac.tolist(),
         "passar_em": vertices[:3].tolist()
