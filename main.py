@@ -42,4 +42,4 @@ def p2():
 def p3():
     return flask.jsonify(gerador.geraProblema3())
 
-app.run(use_reloader=True,debug=False,host="0.0.0.0",port=6000)
+app.run(use_reloader=True,debug=False,host="0.0.0.0",port=5000)
