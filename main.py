@@ -3,16 +3,19 @@ import gerador
 import random
 import manager
 from flask import request
+from flask_socketio import SocketIO
 
 app = flask.Flask('servidor')
 m = manager.manager()
 
-@app.route("/solucao",methods=['POST','GET'])
+socketio = SocketIO(app)
+
+@app.route("/solucao",methods=['POST'])
 def solucao():
     sol = m.parseSolution(request.data)
     m.registerSolution(sol)
     #print(m.d[sol["uuid"]])
-    return "ok"
+    return flask.jsonify({"status": "ok"})
 
 @app.route("/")
 def index():
@@ -42,4 +45,24 @@ def p2():
 def p3():
     return flask.jsonify(gerador.geraProblema3())
 
-app.run(use_reloader=True,debug=False,host="0.0.0.0",port=6000)
+
+
+@app.route("/dados")
+def dados():
+    return """
+    <html>
+    <body>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    </body>
+    </html>
+    """
+
+@socketio.on('message')
+def handle_message(message):
+    socketio.emit("reply",message)
+    print('received message: ' + message)
+
+
+
+app.run(use_reloader=True,debug=False,host="0.0.0.0",port=5000)
+socketio.run(app, port=7000)
