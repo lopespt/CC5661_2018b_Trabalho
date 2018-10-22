@@ -4,6 +4,7 @@ import random
 import manager
 from flask import request
 from flask_socketio import SocketIO
+import json
 
 app = flask.Flask('servidor')
 m = manager.manager()
@@ -20,7 +21,8 @@ def solucao():
 @app.route("/")
 def index():
     idGrupo = request.args.get("idGrupo")
-    p = random.randint(1,3)
+    #p = random.randint(1,3)
+    p=3
     if p==1:
         prob = gerador.geraProblema1()
     elif p==2:
@@ -31,7 +33,17 @@ def index():
     code = m.registerProblem(prob, idGrupo)
     return flask.jsonify({"uuid": code, "problema": prob})
 
+@app.route("/correction")
+def correction():
+    problem = m.nextCorrection()
+    return flask.jsonify(problem)
 
+
+@app.route("/correction/solucao", methods=["POST"])
+def correctionSolution():
+    sol = m.parseSolution(request.data)
+    m.registerCorrection(sol)
+    return flask.jsonify({"status": "ok"})
 
 @app.route("/p1")
 def p1():

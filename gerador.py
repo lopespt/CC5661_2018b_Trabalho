@@ -42,18 +42,41 @@ def geraProblema2():
 def geraProblema3():
     tam_grafo = np.random.randint(5,15)
     matriz_adjac = np.random.randint(1,20,(tam_grafo,tam_grafo))
-    densidade = np.random.uniform(0.2)
+    densidade = np.random.uniform(0.7)
     vertices = np.random.permutation(range(0,tam_grafo))
 
     mat_densi = np.random.random((tam_grafo, tam_grafo)) <= densidade
+    #zerar diagonais
 
     matriz_adjac = matriz_adjac*mat_densi
+    tam_grafo = 6
+    matriz_adjac = np.zeros( (tam_grafo,tam_grafo))
+    matriz_adjac[0,1] = 2
+    matriz_adjac[0,4] = 2
+    matriz_adjac[1,0] = 2
+    matriz_adjac[1,2] = 2
+    matriz_adjac[1,4] = 0.2
+    matriz_adjac[4,0] = 2
+    #matriz_adjac[4,1] = 0.2
+    #matriz_adjac[4,3] = 0.1
+    matriz_adjac[4,5] = 1
+    matriz_adjac[2,1] = 2
+    matriz_adjac[2,5] = 1
+    matriz_adjac[2,3] = 3
+    #matriz_adjac[3,2] = 2
+    #matriz_adjac[3,4] = 0.1
+    matriz_adjac[3,5] = 1
+    matriz_adjac[5,4] = 1
+    matriz_adjac[5,2] = 1
+    #matriz_adjac[5,3] = 1
+   
 
+    vertices = [1,3,5]
     obj = {
         "tipo": "grafo",
         "n_nos": tam_grafo,
         "mat_pesos": matriz_adjac.tolist(),
-        "passar_em": vertices[:3].tolist()
+        "passar_em": vertices[:3]#.tolist()
     }
 
     return obj
